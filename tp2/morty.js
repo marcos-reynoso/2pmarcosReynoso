@@ -6,6 +6,9 @@ async function personaje() {
     obtenerdatospersonaje(id2),
   ]);
   actualizarelementoshtml(datos1, datos2);
+  const personajemasemasepisodios =
+    datos1.episodios > datos2.episodios ? datos1.nombre : datos2.nombre;
+  alert(`${personajemasemasepisodios} tiene más episodios`);
 }
 async function obtenerdatospersonaje(id) {
   const resultado = await fetch(
@@ -20,12 +23,15 @@ async function obtenerdatospersonaje(id) {
     imagen: data.image,
   };
 }
+
 function actualizarelementoshtml(datos1, datos2) {
   const divDatos1 = document.getElementById("datos1");
   const divDatos2 = document.getElementById("datos2");
+  const personajemasemasepisodios =
+    datos1.episodios > datos2.episodios ? datos1.nombre : datos2.nombre;
   divDatos1.innerHTML = `
     <h2>Personaje 1</h2>
-    <p>${datos2.imagen}</p>
+    <img src="${datos1.imagen}">
     <p>Nombre: ${datos1.nombre}</p>
     <p>Especie: ${datos1.especie}</p>
     <p>Estado: ${datos1.estado}</p>
@@ -33,22 +39,14 @@ function actualizarelementoshtml(datos1, datos2) {
   `;
   divDatos2.innerHTML = `
     <h2>Personaje 2</h2>
-    <p>${datos2.imagen}</p>
+    <img src="${datos2.imagen}">
     <p>Nombre: ${datos2.nombre}</p>
     <p>Especie: ${datos2.especie}</p>
     <p>Estado: ${datos2.estado}</p>
     <p>Episodios: ${datos2.episodios}</p>
   `;
 }
-if (datos1.episodios > datos2.episodios) {
-  alert(
-    `El  (${datos1.episodios}) es mayor que el segundo  (${datos2.episodios})`
-  );
-} else if (datos2.episodios > datos1.episodios) {
-  alert(`El (${datos2.episodios}) es mayor que el   (${datos1.episodios})`);
-} else {
-  alert("Ambos tienen la misma cantida de episodios ");
-}
+
 /* {
     "id": 5,
     "name": "Jerry Smith",
